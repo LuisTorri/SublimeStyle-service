@@ -1,3 +1,4 @@
 import HealthCheckModule from "./healthCheck/HealthCheckModule";
+import ProductModule from "./product/ProductModule";
 
-export default [HealthCheckModule];
+export default [HealthCheckModule, ProductModule];
