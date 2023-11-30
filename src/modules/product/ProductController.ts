@@ -27,15 +27,16 @@ export default class ProductController {
   }
 
   getProduct(req: Request, res: Response) {
+    const { id } = req?.params;
     this.service
-      .getProduct(req?.params?.id)
+      .getProduct(id)
       .then((product: ProductDto) => {
         if (product) {
           res.send(product);
         } else {
           throw makeError(
             404,
-            `No se encontro un producto asociado con el id ${req?.params?.id}`,
+            `No se encontro un producto asociado con el id ${id}`,
             product
           );
         }
@@ -44,10 +45,17 @@ export default class ProductController {
   }
 
   deleteProduct(req: Request, res: Response) {
-    // this.service
-    //   .deleteProduct(req)
-    //   .then((product: ProductDto) => res.status(201).send(product))
-    //   .catch((err: any) => res.status(400).send(err));
+    const { id } = req?.params;
+    this.service
+      .deleteProduct(id)
+      .then((isOk: boolean) => {
+        if (isOk) {
+          res.send({ message: "Se elimino con exito" });
+        } else {
+          throw makeError(400, "No se pudo eliminar", id);
+        }
+      })
+      .catch((err: any) => res.status(err.code).send(err));
   }
 
   getListProduct(_req: Request, res: Response): void {
@@ -58,16 +66,18 @@ export default class ProductController {
   }
 
   addProduct(req: Request, res: Response) {
-    // this.service
-    //   .addProduct(req)
-    //   .then((product: ProductDto) => res.status(201).send(product))
-    //   .catch((err: any) => res.status(400).send(err));
+    const { body } = req;
+    this.service
+      .addProduct(body)
+      .then((product: ProductDto) => res.status(201).send(product))
+      .catch((err: any) => res.status(400).send(err));
   }
 
   editProduct(req: Request, res: Response) {
-    // this.service
-    //   .editProduct(req)
-    //   .then((product: ProductDto) => res.status(201).send(product))
-    //   .catch((err: any) => res.status(400).send(err));
+    const { body } = req;
+    this.service
+      .editProduct(body)
+      .then((product: ProductDto) => res.status(201).send(product))
+      .catch((err: any) => res.status(400).send(err));
   }
 }

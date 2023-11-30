@@ -23,9 +23,8 @@ export default class Server {
   }
 
   public run(): void {
-    const LUIS = process.env.LUIS;
     this.application.listen("3000", () =>
-      console.info("Running express app on port 3000", LUIS)
+      console.info("Running express app on port 3000")
     );
   }
 }
