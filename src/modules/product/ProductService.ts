@@ -1,11 +1,7 @@
-import { Request, Response } from "express";
-import Product from "./model/Product";
 import ProductDto from "./dto/ProductDto";
-import ErrorDto from "../dto/ErrorDto";
 import makeError from "../utils/makeError";
 import DB from "../utils/db";
-//import ClientMysql from "../../utils/clientMysql";
-//import ProductDto from "./dto/ProductDto";
+
 
 export default class ProductService {
   private db: DB;
